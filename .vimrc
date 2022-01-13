@@ -1,3 +1,13 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/nerdtree'
+Plug 'mattn/emmet-vim'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+
+call plug#end()
+
 syntax on
 
 set backspace=indent,eol,start
@@ -22,6 +32,10 @@ set ai
 
 highlight Comment ctermfg=green
 
+if &listchars ==# 'eol:$'
+  " set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  set listchars=tab:>\ ,extends:>,precedes:<,nbsp:+
+endif
 
 if has('mouse')
   if &term =~ 'xterm'
@@ -47,6 +61,7 @@ nnoremap <S-k> :wincmd k<CR>
 nnoremap <S-l> :wincmd l<CR>
 nnoremap <silent> <space>l :5winc ><CR>
 nnoremap <silent> <space>h :5winc <<CR>
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 
 inoremap " ""<left>
 inoremap ' ''<left>
@@ -56,7 +71,17 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
-if &listchars ==# 'eol:$'
-  " set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-  set listchars=tab:>\ ,extends:>,precedes:<,nbsp:+
-endif
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']
+let NERDTreeQuitOnOpen=1
+let NERDTreeIgnore=[
+      \'\.jar$',
+      \'\.db$',
+      \'__pycache__$',
+      \'node_modules',
+      \'Desktop',
+      \'Downloads',
+      \'Documents',
+      \]
