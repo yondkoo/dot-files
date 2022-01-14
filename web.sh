@@ -19,7 +19,7 @@ function safari() {
 
 function google() {
     QUERY=$( rawurlencode "$*" )
-    safari "https://www.google.co.uk/search?client=safari&rls=en&q=$QUERY&ie=UTF-8&oe=UTF-8"
+    safari "https://www.google.com/search?client=safari&rls=en&q=$QUERY&ie=UTF-8&oe=UTF-8"
 }
 
 # URL encoding function taken from https://stackoverflow.com/a/10660730
