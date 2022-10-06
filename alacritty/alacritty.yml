@@ -1,3 +1,4 @@
+
 env:
   TERM: xterm-256color
 window:
@@ -5,14 +6,17 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
-  opacity: 0.9
+  opacity: 1
   dimensions:
     columns: 0
     lines: 0
+  padding:
+    x: 5
+    y: 0
 
 font:
-  #use_thin_strokes: true
-  size: 11.5
+  use_thin_strokes: true
+  size: 13
   normal:
     family: Monaco
     style: Regular
@@ -23,46 +27,41 @@ scolling:
   auto_scroll: false
 
 draw_bold_text_with_bright_colors: true
-alt_send_esc: false
 
 colors:
   # Default colors
   primary:
-    background: '#000000'
-    foreground: '#ffffff'
-  cursor:
-    text: '#F81CE5'
-    cursor: '#ffffff'
-  selection:
-    text: '#FAFAFA'
-    background: '#252834'
+    background: '#1e1e1e'
+    foreground: '#e8e8e8'
 
   # Normal colors
   normal:
     black:   '#000000'
-    red:     '#fe0100'
-    green:   '#00a600'
-    yellow:  '#feff00'
-    blue:    '#0066ff'
-    magenta: '#cc00ff'
-    cyan:    '#00ffff'
-    white:   '#d0d0d0'
+    red:     '#d6492e'
+    #red:     '#990000'
+    green:   '#41c732'
+    yellow:  '#999900'
+    blue:    '#6b42f7'
+    magenta: '#b200b2'
+    cyan:    '#00a6b2'
+    white:   '#bfbfbf'
 
   # Bright colors
   bright:
-    black:   '#808080'
-    red:     '#fe0100'
+    black:   '#666666'
+    red:     '#e50000'
     green:   '#00d900'
-    yellow:  '#feff00'
-    blue:    '#0066ff'
-    magenta: '#cc00ff'
-    cyan:    '#00ffff'
-    white:   '#FFFFFF'
+    yellow:  '#e5e500'
+    blue:    '#0000ff'
+    magenta: '#e500e5'
+    cyan:    '#00e5e5'
+    white:   '#e5e5e5'
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: true
 
+alt_send_esc: false
 key_bindings:
   - { key: Return,    mods: Alt,           action: SpawnNewInstance }
   - { key: K,         mods: Control|Shift, action: ScrollLineUp }
@@ -138,4 +137,5 @@ key_bindings:
   - { key: Key8,      mods: Alt,       chars: "\x1b8" }
   - { key: Key9,      mods: Alt,       chars: "\x1b9" }
   - { key: Key0,      mods: Alt,       chars: "\x1b0" }
+
 
