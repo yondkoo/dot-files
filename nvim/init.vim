@@ -4,7 +4,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 
-" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim', {'tag': 'v2.*'}
 
 Plug 'dinhhuy258/git.nvim'
@@ -22,14 +21,22 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'hashivim/vim-terraform'
 
+Plug 'jacoborus/tender.vim'
 Plug 'bluz71/vim-nightfly-guicolors'
 
+Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
 
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
 
 call plug#end()
 
+colorscheme nightfly
+" colorscheme tender
+
+set termguicolors
+" Ha! who need another yank
+xnoremap p pgvy
 
 let mapleader=","
 let no_buffers_menu=1
@@ -65,36 +72,6 @@ nnoremap <silent><leader>6 <Cmd>tabn 6<CR>
 nnoremap <silent><leader>7 <Cmd>tabn 7<CR>
 nnoremap <silent><leader>8 <Cmd>tabn 8<CR>
 
-" lua << EOF
-" require("bufferline").setup{}
-" EOF
-
-" nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
-" nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
-" nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
-" nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
-" nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
-" nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
-" nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
-" nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
-" nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
-" nnoremap <silent><leader>$ <Cmd>BufferLineGoToBuffer -1<CR>
-" nnoremap <silent><leader>x <Cmd>BufferLineCloseLeft<CR>
-" 
-" nnoremap <silent>[b :BufferLineCycleNext<CR>
-" nnoremap <silent>]b :BufferLineCyclePrev<CR>
-" 
-" " These commands will move the current buffer backwards or forwards in the bufferline
-" nnoremap <silent><mymap> :BufferLineMoveNext<CR>
-" nnoremap <silent><mymap> :BufferLineMovePrev<CR>
-" 
-" " These commands will sort buffers by directory, language, or a custom criteria
-" nnoremap <silent>be :BufferLineSortByExtension<CR>
-" nnoremap <silent>bd :BufferLineSortByDirectory<CR>
-" nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
-
-
-
 nmap <leader>r :set wrap!<CR>
 nnoremap <silent> <space>l :5winc ><CR>
 nnoremap <silent> <space>h :5winc <<CR>
@@ -109,6 +86,7 @@ filetype off                           " Disable file type detection
 filetype plugin on                     " Enable plugins
 filetype indent on                     " Enable indent
 
+set number relativenumber
 set re=0
 set number
 set ruler
@@ -116,17 +94,14 @@ set noswapfile
 set clipboard+=unnamed
 set hls
 set backspace=indent,eol,start
-" set list
+
+set listchars=tab:\|\ 
+set list
 set wrap
- "set listchars=trail:⋅,nbsp:⋅
 set ignorecase
 set smartcase
 
-" DANGER!
-set termguicolors
-
-
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
 
 "" Enable hidden buffers
@@ -141,10 +116,6 @@ set mouse=a
 
 hi ColorColumn ctermbg=lightcyan guibg=blue
 highlight Comment ctermfg=cyan
-
-colorscheme nightfly
-
-" colorscheme peachpuff
 
 ":1 NERDTree
 "map <silent><F2> :NERDTreeToggle<CR>
@@ -193,6 +164,5 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
-
 
 "so $HOME/.config/nvim/filetype.vimrc
