@@ -1,0 +1,106 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": [
+        "c",
+        "cpp",
+        "cuda",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        ".ccls-root",
+        "compile_commands.json",
+        ".git/",
+        ".ccls"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        },
+        "client": {
+          "snippetSupport": true
+        },
+        "highlight": {
+          "lsRanges": true
+        }
+      }
+    },
+    "python": {
+      "command": "python3",
+      "args": [
+        "-mpyls",
+        "-vv",
+        "--log-file",
+        "/tmp/lsp_python.log"
+      ],
+      "trace.server": "verbose",
+      "filetypes": [
+        "python"
+      ],
+      "settings": {
+        "pyls": {
+          "enable": true,
+          "trace": {
+            "server": "verbose"
+          },
+          "commandPath": "",
+          "configurationSources": [
+            "pycodestyle"
+          ],
+          "plugins": {
+            "jedi_completion": {
+              "enabled": true
+            },
+            "jedi_hover": {
+              "enabled": true
+            },
+            "jedi_references": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    },
+    "sql": {
+      "command": "sql-language-server",
+      "args" : ["up", "--method", "stdio"],
+      "filetypes": ["sql", "mysql"]
+    },
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["typescript", "typescriptreact", "graphql"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
+    }
+  }
+}

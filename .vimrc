@@ -8,6 +8,7 @@ set ai
 set number
 set hlsearch
 set backspace=indent,eol,start
+set nobackup
 
 set autoindent
 set ruler
@@ -38,6 +39,13 @@ call plug#end()
 let mapleader=","
 let no_buffers_menu=1
 
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
+
+map <silent>N :Vexplore<CR>
 nmap <c-h> :bprevious<CR>
 
 " Window move
@@ -72,6 +80,12 @@ function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    call feedkeys('K', 'in')
+    call feedkeys('D', 'in')
+    "call feedkeys('K', 'in')
   endif
 endfunction
+
+"augroup ProjectDrawer
+  "autocmd!
+  "autocmd VimEnter * :Vexplore
+"augroup END
