@@ -31,10 +31,10 @@ Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
 
 call plug#end()
 
+set termguicolors
 colorscheme nightfly
 " colorscheme tender
 
-set termguicolors
 " Ha! who need another yank
 xnoremap p pgvy
 
@@ -47,6 +47,7 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 nmap <c-h> :bprevious<CR>
+nmap <silent> <leader><space> :nohlsearch<cr>
 
 " Window move
 nmap <leader>h <C-w><LEFT>
@@ -86,7 +87,8 @@ filetype off                           " Disable file type detection
 filetype plugin on                     " Enable plugins
 filetype indent on                     " Enable indent
 
-set number relativenumber
+set number
+" set number relativenumber
 set re=0
 set number
 set ruler
@@ -95,8 +97,8 @@ set clipboard+=unnamed
 set hls
 set backspace=indent,eol,start
 
-set listchars=tab:\|\ 
-set list
+"set listchars=tab:\|\ 
+"set list
 set wrap
 set ignorecase
 set smartcase
@@ -114,8 +116,8 @@ set ignorecase
 set smartcase
 set mouse=a
 
-hi ColorColumn ctermbg=lightcyan guibg=blue
-highlight Comment ctermfg=cyan
+" hi ColorColumn ctermbg=lightcyan guibg=blue
+" highlight Comment ctermfg=cyan
 
 ":1 NERDTree
 "map <silent><F2> :NERDTreeToggle<CR>
@@ -166,3 +168,4 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
 "so $HOME/.config/nvim/filetype.vimrc
+
