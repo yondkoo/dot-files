@@ -1,3 +1,4 @@
+
 # history 
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
@@ -17,7 +18,8 @@ bindkey -e
 setopt autocd extendedglob prompt_subst
 setopt appendhistory share_history histignorealldups
 
-# default apps (( ${+PAGER} )) || export PAGER="less"
+# default apps
+(( ${+PAGER} )) || export PAGER="less"
 
 # propmt
 precmd() {
@@ -27,10 +29,17 @@ precmd() {
 zstyle ':vcs_info:*' formats "%b"
 
 local return_code="%(?..%{$fg[red]%})"
-export PS1='%c ${return_code}➤%{$reset_color%} '
+#export PS1='%c ${return_code}➤%{$reset_color%} '
 
-#PROMPT='%F{gray}%m%f::%F{green}%B%~%b%f$ '
+# PROMPT='%F{gray}%m%f:($(get_namespace))::%F{green}%B%~%b%f$ '
+
+PROMPT='[%F{gray}%m%f@$(get_namespace) %B%~%b%f]$ '
 RPROMPT='${vcs_info_msg_0_}'
+
+# local emoji=${debian_chroot:+($debian_chroot)}\$(if [ \$? == 0 ]; then echo 😊$; else echo 😓; fi) 
+# PROMPT="%F{gray}%m%f:($(get_namespace))::(😊)%F{green}%B%~%b%f$ "
+
+#PROMPT="${emoji}${user} ${pwd}$  "
 
 # colorful listings
 zmodload -i zsh/complist
@@ -84,7 +93,7 @@ clipcopy () { pbcopy < "${1:-/dev/stdin}" }
 clippaste () { pbpaste }
 ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=${1-default} }
 create-deployment() { kubectl create deployment $1 --image=$2 --dry-run=client --output=yaml > deployment.yaml }
-create-statefulset() { kubectl create statefulset $1 --image=$2 --dry-run=client --output=yaml > statefulset.yaml }
+get_namespace() { kubectl config view --minify -o jsonpath='{..namespace}' || return '' }
 listening() {
   if [ $# -eq 0 ]; then
     sudo lsof -iTCP -sTCP:LISTEN -n -P
@@ -105,11 +114,18 @@ export CLICOLOR=1
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 source <(kubectl completion zsh)
+export CI_SERVER_URL=https://gitlab.com
+export AILAB_GROUP_ID=3707208
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+alias vue-cli-service=vue
+
+if [ -f '/Users/yondonrinchin/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yondonrinchin/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/yondonrinchin/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yondonrinchin/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 
