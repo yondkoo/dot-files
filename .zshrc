@@ -29,17 +29,10 @@ precmd() {
 zstyle ':vcs_info:*' formats "%b"
 
 local return_code="%(?..%{$fg[red]%})"
-#export PS1='%c ${return_code}➤%{$reset_color%} '
 
-# PROMPT='%F{gray}%m%f:($(get_namespace))::%F{green}%B%~%b%f$ '
-
-PROMPT='[%F{gray}%m%f@$(get_namespace) %B%~%b%f]$ '
+NEWLINE=$'\n'
 RPROMPT='${vcs_info_msg_0_}'
-
-# local emoji=${debian_chroot:+($debian_chroot)}\$(if [ \$? == 0 ]; then echo 😊$; else echo 😓; fi) 
-# PROMPT="%F{gray}%m%f:($(get_namespace))::(😊)%F{green}%B%~%b%f$ "
-
-#PROMPT="${emoji}${user} ${pwd}$  "
+PROMPT='%F{magenta}$(__kube_ps2)%f@%F{blue}$(__kube_ps1)%f::%F{green}%2~%f$ '
 
 # colorful listings
 zmodload -i zsh/complist
@@ -109,6 +102,28 @@ push_changes() {
   git push origin $1
 }
 
+__kube_ps1()
+{
+    context=$(cat ~/.kube/config | grep "namespace:" | sed "s/namespace: //" | xargs)
+    if [ -n "$context" ]; then
+        echo "${context}"
+    fi
+}
+
+__kube_ps2()
+{
+    context=$(cat ~/.kube/config | grep "cluster:" | sed "s/cluster: //" | tail -1 | xargs)
+    max_length=24
+    text_length=${#context}
+    if [ -n "$context" ]; then
+        if [ $text_length -gt $max_length ]; then
+            echo "$context" | cut -c 1-$max_length
+        else
+            echo ${context}
+        fi
+    fi
+}
+
 # export
 export CLICOLOR=1
 export NVM_DIR=~/.nvm
@@ -122,10 +137,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-
-alias vue-cli-service=vue
-
-if [ -f '/Users/yondonrinchin/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yondonrinchin/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/yondonrinchin/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yondonrinchin/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
 

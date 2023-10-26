@@ -1,171 +1,92 @@
+syntax on
+set nocompatible
+set showmatch
+set ignorecase
+set mouse=v
+set mouse=a
+set hlsearch
+set incsearch
+
+" set listchars=tab:\|\
+" set list
+
+set expandtab       "Use softtabstop spaces instead of tab characters for indentation
+set shiftwidth=4    "Indent by 4 spaces when using >>, <<, == etc.
+set softtabstop=4   "Indent by 4 spaces when pressing <TAB>
+set autoindent      "Keep indentation from previous line
+set smartindent     "Automatically inserts indentation in some cases
+set cindent         "Like smartindent, but stricter and more customisable
+
+"set cursorline
+set number
+set wildmode=longest,list
+set background=dark
+set updatetime=100
+filetype plugin indent on
+filetype plugin on
+set clipboard=unnamedplus
+set ttyfast
+set noswapfile
+hi! link NormalFloat Normal
+
+let mapleader="w"
+
+" move between panes to left/bottom/top/right
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+
 call plug#begin()
-
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-file-browser.nvim'
-
-Plug 'akinsho/bufferline.nvim', {'tag': 'v2.*'}
-
-Plug 'dinhhuy258/git.nvim'
-Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'fisadev/vim-isort'
-Plug 'SirVer/ultisnips'
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'hoob3rt/lualine.nvim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
-Plug 'vimwiki/vimwiki'
-Plug 'mattn/emmet-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'hashivim/vim-terraform'
-
-Plug 'jacoborus/tender.vim'
-Plug 'bluz71/vim-nightfly-guicolors'
-
-Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
-
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-
+Plug 'airblade/vim-gitgutter'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
+Plug 'jvirtanen/vim-hcl'
+Plug 'yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
-set termguicolors
-colorscheme nightfly
-" colorscheme tender
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
-" Ha! who need another yank
-xnoremap p pgvy
+nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
-let mapleader=","
-let no_buffers_menu=1
-
+" Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-nmap <c-h> :bprevious<CR>
-nmap <silent> <leader><space> :nohlsearch<cr>
-
-" Window move
-nmap <leader>h <C-w><LEFT>
-nmap <leader>l <C-w><RIGHT>
-nmap <leader>j <C-w><DOWN>
-nmap <leader>k <C-w><UP>
-
-" Window tab settings /I started using bufferline so, these configs are not in usage/
-
-nnoremap <C-l>h :tabr<cr>
-nnoremap <C-l>l :tabl<cr>
-nnoremap <C-l>j :tabp<cr>
-
-nnoremap <silent><leader>t <Cmd>tabnew<CR>
-nnoremap <silent><leader>x <Cmd>tabc<CR>
-
-nnoremap <silent><leader>1 <Cmd>tabn 1<CR>
-nnoremap <silent><leader>2 <Cmd>tabn 2<CR>
-nnoremap <silent><leader>3 <Cmd>tabn 3<CR>
-nnoremap <silent><leader>4 <Cmd>tabn 4<CR>
-nnoremap <silent><leader>5 <Cmd>tabn 5<CR>
-nnoremap <silent><leader>6 <Cmd>tabn 6<CR>
-nnoremap <silent><leader>7 <Cmd>tabn 7<CR>
-nnoremap <silent><leader>8 <Cmd>tabn 8<CR>
-
-nmap <leader>r :set wrap!<CR>
-nnoremap <silent> <space>l :5winc ><CR>
-nnoremap <silent> <space>h :5winc <<CR>
-
-nmap <C-b> :close<CR>
-imap <C-b> <ESC>:close<CR>
-
-map <silent><F2> :NERDTreeToggle<CR>
-
-syntax on
-filetype off                           " Disable file type detection
-filetype plugin on                     " Enable plugins
-filetype indent on                     " Enable indent
-
-set number
-" set number relativenumber
-set re=0
-set number
-set ruler
-set noswapfile
-set clipboard+=unnamed
-set hls
-set backspace=indent,eol,start
-
-"set listchars=tab:\|\ 
-"set list
-set wrap
-set ignorecase
-set smartcase
-
-set tabstop=2 shiftwidth=2 softtabstop=2
-set autoindent
-
-"" Enable hidden buffers
-set hidden
-
-"" Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set mouse=a
-
-" hi ColorColumn ctermbg=lightcyan guibg=blue
-" highlight Comment ctermfg=cyan
-
-":1 NERDTree
-"map <silent><F2> :NERDTreeToggle<CR>
-map <leader>n :NERDTreeToggle<CR>
-
-let g:NERDTreeMapOpenVSplit='a'
-let g:NERDTreeCaseSensitiveSort=1
-let g:NERDTreeWinPos='left'
-"let g:NERDTreeQuitOnOpen=1
-let g:NERDTreeChDirMode=2
-let g:NERDTreeMapOpenInSilent = '<RightMouse>'
-let g:nerdtree_tab_focus_on_files=1
-
-let g:NERDTreeBookmarksFile = $HOME . '/.config/nvim/.nerdtree-bookmarks'
-let NERDTreeIgnore=[
-      \'node_modules',
-      \'Desktop',
-      \'Downloads',
-      \'Dropbox',
-      \'Documents',
-      \'Pictures',
-      \'Music',
-      \'Movies',
-      \]
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 
-let g:vimwiki_list = [{'path': '~/.config/vimwiki', 'path_html': '~/.config/vimwiki'}]
-let g:user_emmet_leader_key=','
+if has ("autocmd")
+    " File type detection. Indent based on filetype. Recommended.
+    filetype plugin indent on
+endif
 
-":2 Tab
-autocmd TabEnter * silent! :execute 'cd' g:NERDTree.ForCurrentTab().getRoot().path.str()
+autocmd BufNewFile,BufRead *[jJ]enkinsfile set syntax=groovy
 
-set background=dark
-"  nmap <Space> za
-"  nmap <CR> za
-
-
-":3 grep.vim
-nnoremap <silent> <leader>f :Rgrep<CR>
-let Grep_Default_Options = '-IR'
-let Grep_Skip_Files = '*.log *.db'
-let Grep_Skip_Dirs = '.git node_modules'
-
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
-"so $HOME/.config/nvim/filetype.vimrc
-
+function! CustomSum()
+        let sum = 0
+        for l in range( 1, line('$') )
+                let fields = split( getline(l), '\s*=\s*' )
+                if ( len( fields ) != 2 || fields[1] =~? '\D' )
+                        continue
+                endif
+                let sum = sum + fields[1]
+        endfor
+        return sum
+endfunction
